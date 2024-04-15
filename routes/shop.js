@@ -7,8 +7,9 @@ const adminData = require("./admin");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  // render shop === shop.pug in view
-  res.render("shop");
+  // allow to pass products to pug
+  const products = adminData.products;
+  res.render("shop", { prods: products, pageTitle: "Shop", path: "/" });
 });
 
 module.exports = router;
