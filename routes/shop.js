@@ -7,9 +7,16 @@ const adminData = require("./admin");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  // allow to pass products to pug
   const products = adminData.products;
-  res.render("shop", { prods: products, pageTitle: "Shop", path: "/" });
+  console.log("products", products);
+  res.render("shop", {
+    prods: products,
+    pageTitle: "Shop",
+    path: "/",
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true,
+  });
 });
 
 module.exports = router;
