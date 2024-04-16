@@ -5,14 +5,14 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-const { get404 } = require('./controller/error')
+const { get404 } = require('./controller/error')
+
+const adminRouter = require('./routes/admin')
+const shopRoutes = require('./routes/shop')
 
 // set ejs <-- native from express
 app.set('view engine', 'ejs')
 app.set('views', 'views')
-
-const adminRouter = require('./routes/admin')
-const shopRoutes = require('./routes/shop')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
