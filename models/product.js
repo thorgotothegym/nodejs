@@ -1,39 +1,40 @@
-const fs = require('node:fs')
-const path = require('node:path')
+const fs = require('fs');
+const path = require('path');
 
-const thePath = path.join(
+const p = path.join(
   path.dirname(process.mainModule.filename),
   'data',
   'products.json'
-)
-
-console.log(thePath)
+);
 
 const getProductsFromFile = cb => {
-  fs.readFile(thePath, (err, fileContent) => {
-    // eslint-disable-next-line n/no-callback-literal
-    err ? cb([]) : cb(JSON.parse(fileContent))
-  })
-}
+  fs.readFile(p, (err, fileContent) => {
+    if (err) {
+      cb([]);
+    } else {
+      cb(JSON.parse(fileContent));
+    }
+  });
+};
 
 module.exports = class Product {
-  constructor (title, imageUrl, price, description) {
-    this.title = title
-    this.imageUrl = imageUrl
-    this.price = price
-    this.description = description
+  constructor(title, imageUrl, description, price) {
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
-  save () {
+  save() {
     getProductsFromFile(products => {
-      products.push(this)
-      fs.writeFile(thePath, JSON.stringify(products), (err) => {
-        err ? console.log('error', err) : console.log(`the ${JSON.stringify(this.title)} has been add in the db`)
-      })
-    })
+      products.push(this);
+      fs.writeFile(p, JSON.stringify(products), err => {
+        console.log(err);
+      });
+    });
   }
 
-  static fetchAll (cb) {
-    getProductsFromFile(cb)
+  static fetchAll(cb) {
+    getProductsFromFile(cb);
   }
-}
+};
