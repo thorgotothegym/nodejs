@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-const { get404 } = require('./controller/error')
+const { get404 } = require('./controllers/error')
 
 const adminRouter = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
